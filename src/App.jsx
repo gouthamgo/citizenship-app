@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Home, BookOpen, Award, CheckCircle, ArrowLeft, FileText } from 'lucide-react';
 import { SECTIONS } from './data/sections';
 import { QUIZ_QUESTIONS } from './data/quiz-questions';
-import PdfViewer from './components/PdfViewer';
-// import MockPDF from './components/MockPDF';
+// import PdfViewer from './components/PdfViewer';
 import SubsectionContent from './components/SubsectionContent'
 import Quiz from './components/Quiz';
 
@@ -13,7 +12,7 @@ function App() {
   const [activeSubsection, setActiveSubsection] = useState(null);
   
   // PDF file path - this PDF should be placed in the public folder
-  const pdfUrl = '/australian-citizenship-our-common-bond.pdf';
+  // const pdfUrl = '/australian-citizenship-our-common-bond.pdf';
 
   // Load progress from localStorage on initial load
   useEffect(() => {
@@ -110,7 +109,7 @@ function App() {
             </button>
           ))}
           
-          <button 
+          {/* <button 
             className={`flex items-center gap-2 px-4 py-2 ${activeTab === 'pdf' ? 'border-b-2 border-green-600 text-green-600' : 'text-gray-600'}`}
             onClick={() => {
               setActiveTab('pdf');
@@ -119,7 +118,7 @@ function App() {
           >
             <FileText size={18} />
             <span>PDF</span>
-          </button>
+          </button> */}
           
           <button 
             className={`flex items-center gap-2 px-4 py-2 ${activeTab === 'practice' ? 'border-b-2 border-green-600 text-green-600' : 'text-gray-600'}`}
@@ -266,7 +265,7 @@ function App() {
             )
           ))}
           
-          {activeTab === 'pdf' && (
+          {/* {activeTab === 'pdf' && (
             <div>
               <h2 className="text-2xl font-bold mb-4">Australian Citizenship: Our Common Bond</h2>
               <p className="text-gray-600 mb-6">
@@ -276,7 +275,7 @@ function App() {
               <PdfViewer pdfUrl={pdfUrl} />
             
             </div>
-          )}
+          )} */}
           
           {activeTab === 'practice' && (
             <div>
