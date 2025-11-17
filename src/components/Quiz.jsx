@@ -12,6 +12,7 @@ const Quiz = ({ questions, darkMode }) => {
   const [startTime, setStartTime] = useState(Date.now());
   const [timeSpent, setTimeSpent] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [starredQuestionIds, setStarredQuestionIds] = useState([]);
 
   const { completeQuiz, addXP, unlockAchievement } = useGame();
   const { width, height } = useWindowSize();
@@ -20,6 +21,11 @@ const Quiz = ({ questions, darkMode }) => {
 
   useEffect(() => {
     setStartTime(Date.now());
+    // Load starred questions from localStorage
+    const saved = localStorage.getItem('citizenship-starred-questions');
+    if (saved) {
+      setStarredQuestionIds(JSON.parse(saved));
+    }
   }, []);
 
   const handleSelectAnswer = (questionId, optionId) => {
@@ -27,6 +33,14 @@ const Quiz = ({ questions, darkMode }) => {
       ...selectedAnswers,
       [questionId]: optionId
     });
+  };
+
+  const toggleStar = (questionId) => {
+    const updated = starredQuestionIds.includes(questionId)
+      ? starredQuestionIds.filter(id => id !== questionId)
+      : [...starredQuestionIds, questionId];
+    setStarredQuestionIds(updated);
+    localStorage.setItem('citizenship-starred-questions', JSON.stringify(updated));
   };
 
   const handleNext = () => {
@@ -274,11 +288,27 @@ const Quiz = ({ questions, darkMode }) => {
                       {question.question}
                     </p>
                   </div>
-                  {isCorrect ? (
-                    <CheckCircle className="text-green-500 flex-shrink-0 ml-4" size={28} />
-                  ) : (
-                    <XCircle className="text-red-500 flex-shrink-0 ml-4" size={28} />
-                  )}
+                  <div className="flex items-center gap-2 ml-4">
+                    <button
+                      onClick={() => toggleStar(question.id)}
+                      className={`p-2 rounded-lg transition-all ${
+                        starredQuestionIds.includes(question.id)
+                          ? 'text-yellow-500 hover:bg-yellow-500/10'
+                          : darkMode ? 'text-gray-400 hover:bg-gray-700' : 'text-gray-400 hover:bg-gray-100'
+                      }`}
+                      title={starredQuestionIds.includes(question.id) ? 'Remove from starred' : 'Star this question'}
+                    >
+                      <Star
+                        size={20}
+                        className={starredQuestionIds.includes(question.id) ? 'fill-yellow-500' : ''}
+                      />
+                    </button>
+                    {isCorrect ? (
+                      <CheckCircle className="text-green-500 flex-shrink-0" size={28} />
+                    ) : (
+                      <XCircle className="text-red-500 flex-shrink-0" size={28} />
+                    )}
+                  </div>
                 </div>
 
                 <div className={`p-4 rounded-lg mb-3 ${
@@ -368,15 +398,35 @@ const Quiz = ({ questions, darkMode }) => {
           className={`p-8 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}
         >
           {/* Difficulty Badge */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className={`text-sm font-medium px-3 py-1 rounded-full ${getDifficultyBg(currentQuestion.difficulty)} ${getDifficultyColor(currentQuestion.difficulty)}`}>
-              {currentQuestion.difficulty?.toUpperCase()}
-            </span>
-            {currentQuestion.category && (
-              <span className={`text-xs px-2 py-1 rounded ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
-                {currentQuestion.category.replace('-', ' ')}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-medium px-3 py-1 rounded-full ${getDifficultyBg(currentQuestion.difficulty)} ${getDifficultyColor(currentQuestion.difficulty)}`}>
+                {currentQuestion.difficulty?.toUpperCase()}
               </span>
-            )}
+              {currentQuestion.category && (
+                <span className={`text-xs px-2 py-1 rounded ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
+                  {currentQuestion.category.replace('-', ' ')}
+                </span>
+              )}
+            </div>
+
+            <button
+              onClick={() => toggleStar(currentQuestion.id)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+                starredQuestionIds.includes(currentQuestion.id)
+                  ? 'text-yellow-500 hover:bg-yellow-500/10'
+                  : darkMode ? 'text-gray-400 hover:bg-gray-700' : 'text-gray-400 hover:bg-gray-100'
+              }`}
+              title={starredQuestionIds.includes(currentQuestion.id) ? 'Remove from starred' : 'Star this question'}
+            >
+              <Star
+                size={20}
+                className={starredQuestionIds.includes(currentQuestion.id) ? 'fill-yellow-500' : ''}
+              />
+              <span className="text-sm font-medium">
+                {starredQuestionIds.includes(currentQuestion.id) ? 'Starred' : 'Star'}
+              </span>
+            </button>
           </div>
 
           <h3 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>

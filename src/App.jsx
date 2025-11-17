@@ -24,11 +24,14 @@ import {
   Laptop,
   Trophy,
   Calendar,
-  Layers
+  Layers,
+  Star
 } from 'lucide-react';
 import { SECTIONS } from './data/sections';
 import { QUIZ_QUESTIONS } from './data/quiz-questions';
 import { EXPANDED_QUESTIONS } from './data/expanded-questions';
+import { GOVERNMENT_QUESTIONS } from './data/government-questions';
+import { VALUES_QUESTIONS } from './data/values-questions';
 import SubsectionContent from './components/SubsectionContent';
 import Quiz from './components/Quiz';
 import MockTest from './components/MockTest';
@@ -45,6 +48,7 @@ import Logo, { LogoSimple } from './components/Logo';
 import ProgressDashboard from './components/ProgressDashboard';
 import Flashcards from './components/Flashcards';
 import ValuesQuiz from './components/ValuesQuiz';
+import StarredQuestions from './components/StarredQuestions';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -394,6 +398,22 @@ function App() {
                 <span>Flashcards</span>
               </button>
 
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'starred-questions'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('starred-questions');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Star size={18} className="mr-3" />
+                <span>Starred Questions</span>
+              </button>
+
               <div className="mt-6 grid grid-cols-1 gap-3">
                 <button 
                   className={`py-3 rounded-md ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white text-center font-medium transition duration-200`}
@@ -439,11 +459,11 @@ function App() {
           <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
             <h2 className="text-2xl font-bold mb-4">Practice Quiz</h2>
             <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-6`}>
-              Test your knowledge of Australian citizenship with this practice quiz. 
+              Test your knowledge of Australian citizenship with this practice quiz.
               You need to score at least 75% to pass the actual test.
             </p>
-            
-            <Quiz questions={EXPANDED_QUESTIONS} darkMode={darkMode} />
+
+            <Quiz questions={[...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS]} darkMode={darkMode} />
           </div>
         )}
         
@@ -476,6 +496,10 @@ function App() {
           <ValuesQuiz darkMode={darkMode} onBack={() => setActiveTab('home')} />
         )}
 
+        {activeTab === 'starred-questions' && (
+          <StarredQuestions darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
         {activeTab === 'about' && (
           <AboutPage darkMode={darkMode} />
         )}
@@ -489,7 +513,7 @@ function App() {
         )}
 
         {/* Study Sections */}
-        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'about', 'privacy', 'terms'].includes(activeTab) && (
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'about', 'privacy', 'terms'].includes(activeTab) && (
           <div>
             {!activeSubsection ? (
               <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
