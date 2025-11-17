@@ -36,6 +36,12 @@ import UserStatsBar from './components/UserStatsBar';
 import LandingPage from './components/LandingPage';
 import Achievements from './components/Achievements';
 import DailyChallenge from './components/DailyChallenge';
+import OnboardingModal from './components/OnboardingModal';
+import AboutPage from './components/AboutPage';
+import PrivacyPage from './components/PrivacyPage';
+import TermsPage from './components/TermsPage';
+import Logo, { LogoSimple } from './components/Logo';
+import ProgressDashboard from './components/ProgressDashboard';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -44,14 +50,16 @@ function App() {
   const [activeSubsection, setActiveSubsection] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showProgressDashboard, setShowProgressDashboard] = useState(false);
+
   // Load progress from localStorage on initial load
   useEffect(() => {
     const savedProgress = localStorage.getItem('citizenship-progress');
     if (savedProgress) {
       setSections(JSON.parse(savedProgress));
     }
-    
+
     // Check for user preference on dark mode
     const savedDarkMode = localStorage.getItem('citizenship-dark-mode');
     if (savedDarkMode) {
@@ -61,7 +69,18 @@ function App() {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setDarkMode(prefersDark);
     }
+
+    // Check if first time visit - show onboarding
+    const hasSeenOnboarding = localStorage.getItem('citizenship-onboarding-complete');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
   }, []);
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('citizenship-onboarding-complete', 'true');
+    setShowOnboarding(false);
+  };
   
   // Function to update progress
   const updateProgress = (sectionId, subsectionId, completed) => {
@@ -123,6 +142,17 @@ function App() {
 
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+      {/* Onboarding Modal */}
+      {showOnboarding && <OnboardingModal darkMode={darkMode} onClose={handleOnboardingComplete} />}
+
+      {/* Progress Dashboard */}
+      {showProgressDashboard && (
+        <ProgressDashboard
+          darkMode={darkMode}
+          onClose={() => setShowProgressDashboard(false)}
+        />
+      )}
+
       {/* Achievement Toast Notifications */}
       <AchievementToast />
 
@@ -133,8 +163,8 @@ function App() {
             setActiveTab('home');
             setActiveSubsection(null);
           }}>
-            <div className="flex items-center justify-center w-10 h-10 bg-white rounded-lg mr-3">
-              <Flag size={18} className="text-blue-600" />
+            <div className="mr-3">
+              <LogoSimple size={40} />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">CitizenTest<span className="text-yellow-300 font-normal">.au</span></h1>
@@ -376,7 +406,10 @@ function App() {
       <main className="flex-grow container mx-auto px-4 py-6 md:px-6">
         {/* User Stats Bar */}
         <div className="mb-6">
-          <UserStatsBar darkMode={darkMode} />
+          <UserStatsBar
+            darkMode={darkMode}
+            onViewProgress={() => setShowProgressDashboard(true)}
+          />
         </div>
 
         {activeTab === 'home' && (
@@ -413,6 +446,18 @@ function App() {
         {activeTab === 'daily-challenge' && (
           <DailyChallenge darkMode={darkMode} />
         )}
+
+        {activeTab === 'about' && (
+          <AboutPage darkMode={darkMode} />
+        )}
+
+        {activeTab === 'privacy' && (
+          <PrivacyPage darkMode={darkMode} />
+        )}
+
+        {activeTab === 'terms' && (
+          <TermsPage darkMode={darkMode} />
+        )}
       </main>
       
       <footer className={`py-8 border-t ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} transition-colors duration-200`}>
@@ -420,8 +465,8 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center mb-4">
-                <div className="flex items-center justify-center w-10 h-10 bg-white rounded-lg mr-3">
-                  <Flag size={18} className="text-blue-600" />
+                <div className="mr-3">
+                  <LogoSimple size={40} />
                 </div>
                 <h3 className="text-xl font-bold">CitizenTest<span className="text-blue-500 dark:text-blue-400">.au</span></h3>
               </div>
@@ -481,22 +526,40 @@ function App() {
               <h4 className="font-medium mb-4">Legal</h4>
               <ul className={`space-y-2 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 <li>
-                  <a href="#" className="hover:underline flex items-center">
+                  <button
+                    onClick={() => {
+                      setActiveTab('about');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:underline flex items-center"
+                  >
+                    <ChevronRight size={14} className="mr-1" />
+                    About Us
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setActiveTab('privacy');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:underline flex items-center"
+                  >
                     <ChevronRight size={14} className="mr-1" />
                     Privacy Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline flex items-center">
+                  <button
+                    onClick={() => {
+                      setActiveTab('terms');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:underline flex items-center"
+                  >
                     <ChevronRight size={14} className="mr-1" />
                     Terms of Use
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline flex items-center">
-                    <ChevronRight size={14} className="mr-1" />
-                    Cookie Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <a href="mailto:support@citizentest.au" className="hover:underline flex items-center">
