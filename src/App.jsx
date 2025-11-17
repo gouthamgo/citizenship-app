@@ -458,6 +458,76 @@ function App() {
         {activeTab === 'terms' && (
           <TermsPage darkMode={darkMode} />
         )}
+
+        {/* Study Sections */}
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'about', 'privacy', 'terms'].includes(activeTab) && (
+          <div>
+            {!activeSubsection ? (
+              <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
+                <div className="flex items-center mb-6">
+                  <currentSection.icon className={`mr-3 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} size={32} />
+                  <div>
+                    <h2 className="text-2xl font-bold">{currentSection.title}</h2>
+                    <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} mt-1`}>{currentSection.description}</p>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Section Progress</span>
+                    <span className={`text-sm font-bold ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>{getSectionProgress(currentSection)}%</span>
+                  </div>
+                  <div className={`w-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-full h-2.5`}>
+                    <div
+                      className={`${darkMode ? 'bg-blue-500' : 'bg-blue-600'} h-2.5 rounded-full transition-all duration-300`}
+                      style={{ width: `${getSectionProgress(currentSection)}%` }}
+                    ></div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {currentSection.subsections.map(subsection => (
+                    <button
+                      key={subsection.id}
+                      onClick={() => setActiveSubsection(subsection.id)}
+                      className={`p-4 rounded-lg text-left transition duration-200 ${
+                        darkMode
+                          ? 'bg-gray-700 hover:bg-gray-650 border border-gray-600'
+                          : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="font-semibold mb-1">{subsection.title}</h3>
+                          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{subsection.description}</p>
+                        </div>
+                        {subsection.completed && (
+                          <CheckCircle className="text-green-500 ml-2 flex-shrink-0" size={20} />
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
+                <button
+                  onClick={() => setActiveSubsection(null)}
+                  className={`mb-4 flex items-center ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'} transition duration-200`}
+                >
+                  <ArrowLeft size={20} className="mr-2" />
+                  Back to {currentSection.title}
+                </button>
+
+                <SubsectionContent
+                  subsection={currentSubsection}
+                  darkMode={darkMode}
+                  onComplete={() => updateProgress(currentSection.id, currentSubsection.id, !currentSubsection.completed)}
+                />
+              </div>
+            )}
+          </div>
+        )}
       </main>
       
       <footer className={`py-8 border-t ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} transition-colors duration-200`}>
