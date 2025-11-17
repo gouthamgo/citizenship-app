@@ -313,6 +313,15 @@ export default function Flashcards({ darkMode }) {
   const progress = ((currentCardIndex + 1) / shuffledCards.length) * 100;
   const masteryProgress = currentSet ? (knownCards.size / currentSet.cards.length) * 100 : 0;
 
+  // Safety check - if no cards loaded yet, show loading
+  if (!currentCard || shuffledCards.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Loading flashcards...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
