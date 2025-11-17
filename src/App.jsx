@@ -36,6 +36,7 @@ import UserStatsBar from './components/UserStatsBar';
 import LandingPage from './components/LandingPage';
 import Achievements from './components/Achievements';
 import DailyChallenge from './components/DailyChallenge';
+import OnboardingModal from './components/OnboardingModal';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -44,14 +45,15 @@ function App() {
   const [activeSubsection, setActiveSubsection] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
   // Load progress from localStorage on initial load
   useEffect(() => {
     const savedProgress = localStorage.getItem('citizenship-progress');
     if (savedProgress) {
       setSections(JSON.parse(savedProgress));
     }
-    
+
     // Check for user preference on dark mode
     const savedDarkMode = localStorage.getItem('citizenship-dark-mode');
     if (savedDarkMode) {
@@ -61,7 +63,18 @@ function App() {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setDarkMode(prefersDark);
     }
+
+    // Check if first time visit - show onboarding
+    const hasSeenOnboarding = localStorage.getItem('citizenship-onboarding-complete');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
   }, []);
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('citizenship-onboarding-complete', 'true');
+    setShowOnboarding(false);
+  };
   
   // Function to update progress
   const updateProgress = (sectionId, subsectionId, completed) => {
@@ -123,6 +136,9 @@ function App() {
 
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+      {/* Onboarding Modal */}
+      {showOnboarding && <OnboardingModal darkMode={darkMode} onClose={handleOnboardingComplete} />}
+
       {/* Achievement Toast Notifications */}
       <AchievementToast />
 
