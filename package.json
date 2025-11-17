@@ -20,8 +20,10 @@
     "lucide-react": "^0.503.0",
     "pdfjs-dist": "^5.1.91",
     "react": "^19.0.0",
+    "react-confetti": "^6.4.0",
     "react-dom": "^19.0.0",
     "react-pdf": "^9.2.1",
+    "react-use": "^17.6.0",
     "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
