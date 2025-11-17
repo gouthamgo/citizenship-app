@@ -21,7 +21,8 @@ import {
   Play,
   BookOpen,
   Scale,
-  Landmark
+  Landmark,
+  Heart
 } from 'lucide-react';
 import { useGame } from '../contexts/GameContext';
 
@@ -251,7 +252,7 @@ export default function LandingPage({ darkMode, setActiveTab }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Part 1 */}
           <motion.button
             onClick={() => setActiveTab('part1')}
@@ -325,7 +326,33 @@ export default function LandingPage({ darkMode, setActiveTab }) {
               Explore how Australian government works and the legal system
             </p>
             <div className={`flex items-center gap-2 text-sm font-medium ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
-              <span>10 Topics</span>
+              <span>8 Topics</span>
+              <ChevronRight size={16} />
+            </div>
+          </motion.button>
+
+          {/* Part 4 */}
+          <motion.button
+            onClick={() => setActiveTab('part4')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`p-6 rounded-xl text-left transition-all duration-200 border-2 ${
+              darkMode
+                ? 'bg-gradient-to-br from-red-900/40 to-pink-900/40 border-red-700/50 hover:border-red-600'
+                : 'bg-gradient-to-br from-red-50 to-pink-100 border-red-200 hover:border-red-400'
+            }`}
+          >
+            <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 ${
+              darkMode ? 'bg-red-800' : 'bg-red-200'
+            }`}>
+              <Heart size={28} className={darkMode ? 'text-red-400' : 'text-red-600'} />
+            </div>
+            <h3 className="text-xl font-bold mb-2">Part 4: Australian Values</h3>
+            <p className={`text-sm mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              Australian values and community life
+            </p>
+            <div className={`flex items-center gap-2 text-sm font-medium ${darkMode ? 'text-red-400' : 'text-red-600'}`}>
+              <span>2 Topics</span>
               <ChevronRight size={16} />
             </div>
           </motion.button>
