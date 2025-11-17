@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { EXPANDED_QUESTIONS } from '../data/expanded-questions';
 import { VALUES_QUESTIONS } from '../data/values-questions';
 import { GOVERNMENT_QUESTIONS } from '../data/government-questions';
+import { ADDITIONAL_QUESTIONS } from '../data/additional-questions';
 
 export default function QuestionOfTheDay({ darkMode }) {
   const [todaysQuestion, setTodaysQuestion] = useState(null);
@@ -12,7 +13,7 @@ export default function QuestionOfTheDay({ darkMode }) {
   const [hasAnsweredToday, setHasAnsweredToday] = useState(false);
   const [streak, setStreak] = useState(0);
 
-  const allQuestions = [...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS];
+  const allQuestions = [...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS, ...ADDITIONAL_QUESTIONS];
 
   useEffect(() => {
     loadTodaysQuestion();

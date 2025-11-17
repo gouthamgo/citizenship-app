@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { EXPANDED_QUESTIONS } from '../data/expanded-questions';
 import { VALUES_QUESTIONS } from '../data/values-questions';
 import { GOVERNMENT_QUESTIONS } from '../data/government-questions';
+import { ADDITIONAL_QUESTIONS } from '../data/additional-questions';
 
 export default function CrammingMode({ darkMode, onBack }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -11,7 +12,7 @@ export default function CrammingMode({ darkMode, onBack }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showValuesOnly, setShowValuesOnly] = useState(false);
 
-  const allQuestions = [...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS];
+  const allQuestions = [...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS, ...ADDITIONAL_QUESTIONS];
 
   // Get unique categories
   const categories = ['all', ...new Set(allQuestions.map(q => q.category).filter(Boolean))];

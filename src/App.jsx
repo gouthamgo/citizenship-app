@@ -35,6 +35,7 @@ import { QUIZ_QUESTIONS } from './data/quiz-questions';
 import { EXPANDED_QUESTIONS } from './data/expanded-questions';
 import { GOVERNMENT_QUESTIONS } from './data/government-questions';
 import { VALUES_QUESTIONS } from './data/values-questions';
+import { ADDITIONAL_QUESTIONS } from './data/additional-questions';
 import SubsectionContent from './components/SubsectionContent';
 import Quiz from './components/Quiz';
 import MockTest from './components/MockTest';
@@ -531,10 +532,10 @@ function App() {
             <h2 className="text-2xl font-bold mb-4">Practice Quiz</h2>
             <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-6`}>
               Test your knowledge of Australian citizenship with this practice quiz.
-              You need to score at least 75% to pass the actual test.
+              You need to score at least 75% to pass the actual test. Now with 190+ comprehensive questions!
             </p>
 
-            <Quiz questions={[...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS]} darkMode={darkMode} />
+            <Quiz questions={[...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS, ...ADDITIONAL_QUESTIONS]} darkMode={darkMode} />
           </div>
         )}
         
