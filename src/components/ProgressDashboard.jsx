@@ -253,13 +253,13 @@ export default function ProgressDashboard({ darkMode, onClose }) {
                     <div className="flex justify-between items-center">
                       <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Total Quizzes:</span>
                       <span className={`font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                        {userProfile.totalQuizzes || 0}
+                        {userProfile.stats?.quizzesTaken || 0}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Perfect Scores:</span>
                       <span className={`font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                        {userProfile.perfectScores || 0}
+                        {userProfile.stats?.perfectScores || 0}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">

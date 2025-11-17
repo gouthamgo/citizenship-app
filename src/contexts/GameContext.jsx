@@ -116,6 +116,11 @@ export function GameProvider({ children }) {
     startDate: new Date().toISOString(),
     totalCorrectAnswers: 0,
     totalQuestions: 0,
+    bestStreak: 0,
+    categoryProgress: {},
+    dailyChallengeCompleted: false,
+    totalDailyChallenges: 0,
+    dailyChallengeStreak: 0,
     streakFreezes: 3,
     stats: {
       quizzesTaken: 0,
