@@ -55,6 +55,7 @@ import StarredQuestions from './components/StarredQuestions';
 import QuestionOfTheDay from './components/QuestionOfTheDay';
 import TestDatePlanner from './components/TestDatePlanner';
 import CrammingMode from './components/CrammingMode';
+import Leaderboard from './components/Leaderboard';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -468,6 +469,22 @@ function App() {
                 <span>Cramming Mode</span>
               </button>
 
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'leaderboard'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('leaderboard');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Trophy size={18} className="mr-3" />
+                <span>Leaderboard</span>
+              </button>
+
               <div className="mt-6 grid grid-cols-1 gap-3">
                 <button 
                   className={`py-3 rounded-md ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white text-center font-medium transition duration-200`}
@@ -566,6 +583,10 @@ function App() {
           <CrammingMode darkMode={darkMode} onBack={() => setActiveTab('home')} />
         )}
 
+        {activeTab === 'leaderboard' && (
+          <Leaderboard darkMode={darkMode} />
+        )}
+
         {activeTab === 'about' && (
           <AboutPage darkMode={darkMode} />
         )}
@@ -579,7 +600,7 @@ function App() {
         )}
 
         {/* Study Sections */}
-        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'question-of-day', 'test-planner', 'cramming', 'about', 'privacy', 'terms'].includes(activeTab) && (
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'question-of-day', 'test-planner', 'cramming', 'leaderboard', 'about', 'privacy', 'terms'].includes(activeTab) && (
           <div>
             {!activeSubsection ? (
               <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
