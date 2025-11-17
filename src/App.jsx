@@ -28,7 +28,8 @@ import {
   Star,
   Target,
   Eye,
-  Lightbulb
+  Lightbulb,
+  XCircle
 } from 'lucide-react';
 import { SECTIONS } from './data/sections';
 import { QUIZ_QUESTIONS } from './data/quiz-questions';
@@ -58,6 +59,7 @@ import TestDatePlanner from './components/TestDatePlanner';
 import CrammingMode from './components/CrammingMode';
 import Leaderboard from './components/Leaderboard';
 import TimedTest from './components/TimedTest';
+import MistakeReview from './components/MistakeReview';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -503,6 +505,22 @@ function App() {
                 <span>Timed Test (45 min)</span>
               </button>
 
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'mistakes'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('mistakes');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <XCircle size={18} className="mr-3" />
+                <span>Mistake Review</span>
+              </button>
+
               <div className="mt-6 grid grid-cols-1 gap-3">
                 <button 
                   className={`py-3 rounded-md ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white text-center font-medium transition duration-200`}
@@ -609,6 +627,10 @@ function App() {
           <TimedTest darkMode={darkMode} onBack={() => setActiveTab('home')} />
         )}
 
+        {activeTab === 'mistakes' && (
+          <MistakeReview darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
         {activeTab === 'about' && (
           <AboutPage darkMode={darkMode} />
         )}
@@ -622,7 +644,7 @@ function App() {
         )}
 
         {/* Study Sections */}
-        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'question-of-day', 'test-planner', 'cramming', 'leaderboard', 'timed-test', 'about', 'privacy', 'terms'].includes(activeTab) && (
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'question-of-day', 'test-planner', 'cramming', 'leaderboard', 'timed-test', 'mistakes', 'about', 'privacy', 'terms'].includes(activeTab) && (
           <div>
             {!activeSubsection ? (
               <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
