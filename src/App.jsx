@@ -41,6 +41,7 @@ import AboutPage from './components/AboutPage';
 import PrivacyPage from './components/PrivacyPage';
 import TermsPage from './components/TermsPage';
 import Logo, { LogoSimple } from './components/Logo';
+import ProgressDashboard from './components/ProgressDashboard';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showProgressDashboard, setShowProgressDashboard] = useState(false);
 
   // Load progress from localStorage on initial load
   useEffect(() => {
@@ -142,6 +144,14 @@ function App() {
     <div className={`min-h-screen flex flex-col ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
       {/* Onboarding Modal */}
       {showOnboarding && <OnboardingModal darkMode={darkMode} onClose={handleOnboardingComplete} />}
+
+      {/* Progress Dashboard */}
+      {showProgressDashboard && (
+        <ProgressDashboard
+          darkMode={darkMode}
+          onClose={() => setShowProgressDashboard(false)}
+        />
+      )}
 
       {/* Achievement Toast Notifications */}
       <AchievementToast />
@@ -396,7 +406,10 @@ function App() {
       <main className="flex-grow container mx-auto px-4 py-6 md:px-6">
         {/* User Stats Bar */}
         <div className="mb-6">
-          <UserStatsBar darkMode={darkMode} />
+          <UserStatsBar
+            darkMode={darkMode}
+            onViewProgress={() => setShowProgressDashboard(true)}
+          />
         </div>
 
         {activeTab === 'home' && (
