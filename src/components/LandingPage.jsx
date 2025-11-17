@@ -123,6 +123,12 @@ export default function LandingPage({ darkMode, setActiveTab }) {
               </button>
               <button
                 className="px-8 py-4 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold transition-all duration-200 border-2 border-white/30 hover:border-white/50"
+                onClick={() => setActiveTab('flashcards')}
+              >
+                📚 Try Flashcards
+              </button>
+              <button
+                className="px-8 py-4 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold transition-all duration-200 border-2 border-white/30 hover:border-white/50"
                 onClick={() => setActiveTab('mocktest')}
               >
                 Take Full Mock Test
