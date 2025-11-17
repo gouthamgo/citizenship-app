@@ -22,10 +22,12 @@ import {
   Bookmark,
   Info,
   Laptop,
-  Trophy
+  Trophy,
+  Calendar
 } from 'lucide-react';
 import { SECTIONS } from './data/sections';
 import { QUIZ_QUESTIONS } from './data/quiz-questions';
+import { EXPANDED_QUESTIONS } from './data/expanded-questions';
 import SubsectionContent from './components/SubsectionContent';
 import Quiz from './components/Quiz';
 import MockTest from './components/MockTest';
@@ -33,6 +35,7 @@ import AchievementToast from './components/AchievementToast';
 import UserStatsBar from './components/UserStatsBar';
 import LandingPage from './components/LandingPage';
 import Achievements from './components/Achievements';
+import DailyChallenge from './components/DailyChallenge';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -326,6 +329,22 @@ function App() {
                 <span>Achievements</span>
               </button>
 
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'daily-challenge'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('daily-challenge');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Calendar size={18} className="mr-3" />
+                <span>Daily Challenge</span>
+              </button>
+
               <div className="mt-6 grid grid-cols-1 gap-3">
                 <button 
                   className={`py-3 rounded-md ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white text-center font-medium transition duration-200`}
@@ -372,7 +391,7 @@ function App() {
               You need to score at least 75% to pass the actual test.
             </p>
             
-            <Quiz questions={QUIZ_QUESTIONS} darkMode={darkMode} />
+            <Quiz questions={EXPANDED_QUESTIONS} darkMode={darkMode} />
           </div>
         )}
         
@@ -389,6 +408,10 @@ function App() {
 
         {activeTab === 'achievements' && (
           <Achievements darkMode={darkMode} />
+        )}
+
+        {activeTab === 'daily-challenge' && (
+          <DailyChallenge darkMode={darkMode} />
         )}
       </main>
       
