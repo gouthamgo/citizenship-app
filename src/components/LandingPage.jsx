@@ -18,7 +18,10 @@ import {
   Users,
   TrendingUp,
   Sparkles,
-  Play
+  Play,
+  BookOpen,
+  Scale,
+  Landmark
 } from 'lucide-react';
 import { useGame } from '../contexts/GameContext';
 
@@ -238,6 +241,96 @@ export default function LandingPage({ darkMode, setActiveTab }) {
           </motion.div>
         )}
       </motion.div>
+
+      {/* Study Materials Section */}
+      <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-8 mb-8`}>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-3">Study Materials</h2>
+          <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            Learn everything you need to know for the Australian Citizenship Test
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Part 1 */}
+          <motion.button
+            onClick={() => setActiveTab('part1')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`p-6 rounded-xl text-left transition-all duration-200 border-2 ${
+              darkMode
+                ? 'bg-gradient-to-br from-blue-900/40 to-blue-800/40 border-blue-700/50 hover:border-blue-600'
+                : 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:border-blue-400'
+            }`}
+          >
+            <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 ${
+              darkMode ? 'bg-blue-800' : 'bg-blue-200'
+            }`}>
+              <Flag size={28} className={darkMode ? 'text-blue-400' : 'text-blue-600'} />
+            </div>
+            <h3 className="text-xl font-bold mb-2">Part 1: Australia and Its People</h3>
+            <p className={`text-sm mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              Learn about Australian history, culture, symbols, and traditions
+            </p>
+            <div className={`flex items-center gap-2 text-sm font-medium ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+              <span>9 Topics</span>
+              <ChevronRight size={16} />
+            </div>
+          </motion.button>
+
+          {/* Part 2 */}
+          <motion.button
+            onClick={() => setActiveTab('part2')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`p-6 rounded-xl text-left transition-all duration-200 border-2 ${
+              darkMode
+                ? 'bg-gradient-to-br from-purple-900/40 to-purple-800/40 border-purple-700/50 hover:border-purple-600'
+                : 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 hover:border-purple-400'
+            }`}
+          >
+            <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 ${
+              darkMode ? 'bg-purple-800' : 'bg-purple-200'
+            }`}>
+              <BookOpen size={28} className={darkMode ? 'text-purple-400' : 'text-purple-600'} />
+            </div>
+            <h3 className="text-xl font-bold mb-2">Part 2: Democratic Beliefs, Rights & Liberties</h3>
+            <p className={`text-sm mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              Understand Australian values, freedoms, and citizen responsibilities
+            </p>
+            <div className={`flex items-center gap-2 text-sm font-medium ${darkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+              <span>4 Topics</span>
+              <ChevronRight size={16} />
+            </div>
+          </motion.button>
+
+          {/* Part 3 */}
+          <motion.button
+            onClick={() => setActiveTab('part3')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`p-6 rounded-xl text-left transition-all duration-200 border-2 ${
+              darkMode
+                ? 'bg-gradient-to-br from-green-900/40 to-green-800/40 border-green-700/50 hover:border-green-600'
+                : 'bg-gradient-to-br from-green-50 to-green-100 border-green-200 hover:border-green-400'
+            }`}
+          >
+            <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 ${
+              darkMode ? 'bg-green-800' : 'bg-green-200'
+            }`}>
+              <Landmark size={28} className={darkMode ? 'text-green-400' : 'text-green-600'} />
+            </div>
+            <h3 className="text-xl font-bold mb-2">Part 3: Government and the Law</h3>
+            <p className={`text-sm mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              Explore how Australian government works and the legal system
+            </p>
+            <div className={`flex items-center gap-2 text-sm font-medium ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
+              <span>10 Topics</span>
+              <ChevronRight size={16} />
+            </div>
+          </motion.button>
+        </div>
+      </div>
 
       {/* How It Works Section */}
       <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-8 mb-8`}>

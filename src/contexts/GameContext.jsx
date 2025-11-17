@@ -390,7 +390,9 @@ export function GameProvider({ children }) {
     getNextLevel,
     getXPProgress,
     recentAchievements,
-    resetProfile
+    resetProfile,
+    LEVELS,
+    ACHIEVEMENTS
   };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
