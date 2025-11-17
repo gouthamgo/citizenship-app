@@ -37,6 +37,9 @@ import LandingPage from './components/LandingPage';
 import Achievements from './components/Achievements';
 import DailyChallenge from './components/DailyChallenge';
 import OnboardingModal from './components/OnboardingModal';
+import AboutPage from './components/AboutPage';
+import PrivacyPage from './components/PrivacyPage';
+import TermsPage from './components/TermsPage';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -429,6 +432,18 @@ function App() {
         {activeTab === 'daily-challenge' && (
           <DailyChallenge darkMode={darkMode} />
         )}
+
+        {activeTab === 'about' && (
+          <AboutPage darkMode={darkMode} />
+        )}
+
+        {activeTab === 'privacy' && (
+          <PrivacyPage darkMode={darkMode} />
+        )}
+
+        {activeTab === 'terms' && (
+          <TermsPage darkMode={darkMode} />
+        )}
       </main>
       
       <footer className={`py-8 border-t ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} transition-colors duration-200`}>
@@ -497,22 +512,40 @@ function App() {
               <h4 className="font-medium mb-4">Legal</h4>
               <ul className={`space-y-2 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 <li>
-                  <a href="#" className="hover:underline flex items-center">
+                  <button
+                    onClick={() => {
+                      setActiveTab('about');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:underline flex items-center"
+                  >
+                    <ChevronRight size={14} className="mr-1" />
+                    About Us
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      setActiveTab('privacy');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:underline flex items-center"
+                  >
                     <ChevronRight size={14} className="mr-1" />
                     Privacy Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline flex items-center">
+                  <button
+                    onClick={() => {
+                      setActiveTab('terms');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="hover:underline flex items-center"
+                  >
                     <ChevronRight size={14} className="mr-1" />
                     Terms of Use
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline flex items-center">
-                    <ChevronRight size={14} className="mr-1" />
-                    Cookie Policy
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <a href="mailto:support@citizentest.au" className="hover:underline flex items-center">
