@@ -40,6 +40,7 @@ import OnboardingModal from './components/OnboardingModal';
 import AboutPage from './components/AboutPage';
 import PrivacyPage from './components/PrivacyPage';
 import TermsPage from './components/TermsPage';
+import Logo, { LogoSimple } from './components/Logo';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -152,8 +153,8 @@ function App() {
             setActiveTab('home');
             setActiveSubsection(null);
           }}>
-            <div className="flex items-center justify-center w-10 h-10 bg-white rounded-lg mr-3">
-              <Flag size={18} className="text-blue-600" />
+            <div className="mr-3">
+              <LogoSimple size={40} />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">CitizenTest<span className="text-yellow-300 font-normal">.au</span></h1>
@@ -451,8 +452,8 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center mb-4">
-                <div className="flex items-center justify-center w-10 h-10 bg-white rounded-lg mr-3">
-                  <Flag size={18} className="text-blue-600" />
+                <div className="mr-3">
+                  <LogoSimple size={40} />
                 </div>
                 <h3 className="text-xl font-bold">CitizenTest<span className="text-blue-500 dark:text-blue-400">.au</span></h3>
               </div>
