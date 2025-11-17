@@ -8,6 +8,7 @@ import { EXPANDED_QUESTIONS } from '../data/expanded-questions';
 import { VALUES_QUESTIONS } from '../data/values-questions';
 import { GOVERNMENT_QUESTIONS } from '../data/government-questions';
 import { ADDITIONAL_QUESTIONS } from '../data/additional-questions';
+import { EXTENDED_QUESTIONS } from '../data/extended-questions';
 
 export default function TimedTest({ darkMode, onBack }) {
   const [testStarted, setTestStarted] = useState(false);
@@ -28,7 +29,8 @@ export default function TimedTest({ darkMode, onBack }) {
         ...EXPANDED_QUESTIONS,
         ...VALUES_QUESTIONS,
         ...GOVERNMENT_QUESTIONS,
-        ...ADDITIONAL_QUESTIONS
+        ...ADDITIONAL_QUESTIONS,
+        ...EXTENDED_QUESTIONS
       ];
 
       // Ensure we have at least 5 values questions
