@@ -44,6 +44,7 @@ import TermsPage from './components/TermsPage';
 import Logo, { LogoSimple } from './components/Logo';
 import ProgressDashboard from './components/ProgressDashboard';
 import Flashcards from './components/Flashcards';
+import ValuesQuiz from './components/ValuesQuiz';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -471,6 +472,10 @@ function App() {
           </div>
         )}
 
+        {activeTab === 'values-quiz' && (
+          <ValuesQuiz darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
         {activeTab === 'about' && (
           <AboutPage darkMode={darkMode} />
         )}
@@ -484,7 +489,7 @@ function App() {
         )}
 
         {/* Study Sections */}
-        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'about', 'privacy', 'terms'].includes(activeTab) && (
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'about', 'privacy', 'terms'].includes(activeTab) && (
           <div>
             {!activeSubsection ? (
               <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>

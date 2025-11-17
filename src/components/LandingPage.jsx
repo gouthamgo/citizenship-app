@@ -161,6 +161,44 @@ export default function LandingPage({ darkMode, setActiveTab }) {
         </div>
       </div>
 
+      {/* CRITICAL: Australian Values Warning */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className={`rounded-xl p-6 mb-8 border-4 ${
+          darkMode
+            ? 'bg-gradient-to-r from-red-900/40 to-pink-900/40 border-red-500/50'
+            : 'bg-gradient-to-r from-red-50 to-pink-50 border-red-300'
+        }`}
+      >
+        <div className="flex items-start gap-4">
+          <div className="p-4 rounded-full bg-red-500 flex-shrink-0">
+            <Heart size={32} className="text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-2xl font-bold">Australian Values Quiz</h3>
+              <span className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
+                CRITICAL
+              </span>
+            </div>
+            <p className={`mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              <strong>⚠️ Important:</strong> In the real test, you must answer ALL 5 Australian values questions correctly to pass.
+              Missing even ONE values question = automatic FAIL, regardless of your overall score.
+            </p>
+            <button
+              onClick={() => setActiveTab('values-quiz')}
+              className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors flex items-center gap-2"
+            >
+              <Heart size={20} />
+              Practice Values Questions Now
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Interactive Sample Question */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
