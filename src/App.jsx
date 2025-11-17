@@ -23,7 +23,8 @@ import {
   Info,
   Laptop,
   Trophy,
-  Calendar
+  Calendar,
+  Layers
 } from 'lucide-react';
 import { SECTIONS } from './data/sections';
 import { QUIZ_QUESTIONS } from './data/quiz-questions';
@@ -42,6 +43,8 @@ import PrivacyPage from './components/PrivacyPage';
 import TermsPage from './components/TermsPage';
 import Logo, { LogoSimple } from './components/Logo';
 import ProgressDashboard from './components/ProgressDashboard';
+import Flashcards from './components/Flashcards';
+import ValuesQuiz from './components/ValuesQuiz';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -375,6 +378,22 @@ function App() {
                 <span>Daily Challenge</span>
               </button>
 
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'flashcards'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('flashcards');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Layers size={18} className="mr-3" />
+                <span>Flashcards</span>
+              </button>
+
               <div className="mt-6 grid grid-cols-1 gap-3">
                 <button 
                   className={`py-3 rounded-md ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white text-center font-medium transition duration-200`}
@@ -447,6 +466,16 @@ function App() {
           <DailyChallenge darkMode={darkMode} />
         )}
 
+        {activeTab === 'flashcards' && (
+          <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
+            <Flashcards darkMode={darkMode} />
+          </div>
+        )}
+
+        {activeTab === 'values-quiz' && (
+          <ValuesQuiz darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
         {activeTab === 'about' && (
           <AboutPage darkMode={darkMode} />
         )}
@@ -460,7 +489,7 @@ function App() {
         )}
 
         {/* Study Sections */}
-        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'about', 'privacy', 'terms'].includes(activeTab) && (
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'about', 'privacy', 'terms'].includes(activeTab) && (
           <div>
             {!activeSubsection ? (
               <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
