@@ -5,6 +5,8 @@ import Quiz from './Quiz';
 import { EXPANDED_QUESTIONS } from '../data/expanded-questions';
 import { VALUES_QUESTIONS } from '../data/values-questions';
 import { GOVERNMENT_QUESTIONS } from '../data/government-questions';
+import { ADDITIONAL_QUESTIONS } from '../data/additional-questions';
+import { EXTENDED_QUESTIONS } from '../data/extended-questions';
 
 export default function StarredQuestions({ darkMode, onBack }) {
   const [starredQuestionIds, setStarredQuestionIds] = useState([]);
@@ -22,7 +24,9 @@ export default function StarredQuestions({ darkMode, onBack }) {
   const allQuestions = [
     ...EXPANDED_QUESTIONS,
     ...VALUES_QUESTIONS,
-    ...GOVERNMENT_QUESTIONS
+    ...GOVERNMENT_QUESTIONS,
+    ...ADDITIONAL_QUESTIONS,
+    ...EXTENDED_QUESTIONS
   ];
 
   // Get starred questions

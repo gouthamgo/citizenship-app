@@ -25,13 +25,19 @@ import {
   Trophy,
   Calendar,
   Layers,
-  Star
+  Star,
+  Target,
+  Eye,
+  Lightbulb,
+  XCircle
 } from 'lucide-react';
 import { SECTIONS } from './data/sections';
 import { QUIZ_QUESTIONS } from './data/quiz-questions';
 import { EXPANDED_QUESTIONS } from './data/expanded-questions';
 import { GOVERNMENT_QUESTIONS } from './data/government-questions';
 import { VALUES_QUESTIONS } from './data/values-questions';
+import { ADDITIONAL_QUESTIONS } from './data/additional-questions';
+import { EXTENDED_QUESTIONS } from './data/extended-questions';
 import SubsectionContent from './components/SubsectionContent';
 import Quiz from './components/Quiz';
 import MockTest from './components/MockTest';
@@ -49,6 +55,12 @@ import ProgressDashboard from './components/ProgressDashboard';
 import Flashcards from './components/Flashcards';
 import ValuesQuiz from './components/ValuesQuiz';
 import StarredQuestions from './components/StarredQuestions';
+import QuestionOfTheDay from './components/QuestionOfTheDay';
+import TestDatePlanner from './components/TestDatePlanner';
+import CrammingMode from './components/CrammingMode';
+import Leaderboard from './components/Leaderboard';
+import TimedTest from './components/TimedTest';
+import MistakeReview from './components/MistakeReview';
 import { useGame } from './contexts/GameContext';
 
 function App() {
@@ -414,6 +426,102 @@ function App() {
                 <span>Starred Questions</span>
               </button>
 
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'question-of-day'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('question-of-day');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Lightbulb size={18} className="mr-3" />
+                <span>Question of the Day</span>
+              </button>
+
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'test-planner'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('test-planner');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Target size={18} className="mr-3" />
+                <span>Test Date Planner</span>
+              </button>
+
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'cramming'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('cramming');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Eye size={18} className="mr-3" />
+                <span>Cramming Mode</span>
+              </button>
+
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'leaderboard'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('leaderboard');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Trophy size={18} className="mr-3" />
+                <span>Leaderboard</span>
+              </button>
+
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'timed-test'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('timed-test');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Clock size={18} className="mr-3" />
+                <span>Timed Test (45 min)</span>
+              </button>
+
+              <button
+                className={`p-3 rounded-md flex items-center ${
+                  activeTab === 'mistakes'
+                    ? `${darkMode ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-700'}`
+                    : `${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                }`}
+                onClick={() => {
+                  setActiveTab('mistakes');
+                  setActiveSubsection(null);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <XCircle size={18} className="mr-3" />
+                <span>Mistake Review</span>
+              </button>
+
               <div className="mt-6 grid grid-cols-1 gap-3">
                 <button 
                   className={`py-3 rounded-md ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white text-center font-medium transition duration-200`}
@@ -460,10 +568,10 @@ function App() {
             <h2 className="text-2xl font-bold mb-4">Practice Quiz</h2>
             <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} mb-6`}>
               Test your knowledge of Australian citizenship with this practice quiz.
-              You need to score at least 75% to pass the actual test.
+              You need to score at least 75% to pass the actual test. Now with 300+ comprehensive questions!
             </p>
 
-            <Quiz questions={[...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS]} darkMode={darkMode} />
+            <Quiz questions={[...EXPANDED_QUESTIONS, ...VALUES_QUESTIONS, ...GOVERNMENT_QUESTIONS, ...ADDITIONAL_QUESTIONS, ...EXTENDED_QUESTIONS]} darkMode={darkMode} />
           </div>
         )}
         
@@ -500,6 +608,30 @@ function App() {
           <StarredQuestions darkMode={darkMode} onBack={() => setActiveTab('home')} />
         )}
 
+        {activeTab === 'question-of-day' && (
+          <QuestionOfTheDay darkMode={darkMode} />
+        )}
+
+        {activeTab === 'test-planner' && (
+          <TestDatePlanner darkMode={darkMode} />
+        )}
+
+        {activeTab === 'cramming' && (
+          <CrammingMode darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
+        {activeTab === 'leaderboard' && (
+          <Leaderboard darkMode={darkMode} />
+        )}
+
+        {activeTab === 'timed-test' && (
+          <TimedTest darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
+        {activeTab === 'mistakes' && (
+          <MistakeReview darkMode={darkMode} onBack={() => setActiveTab('home')} />
+        )}
+
         {activeTab === 'about' && (
           <AboutPage darkMode={darkMode} />
         )}
@@ -513,7 +645,7 @@ function App() {
         )}
 
         {/* Study Sections */}
-        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'about', 'privacy', 'terms'].includes(activeTab) && (
+        {currentSection && !['home', 'practice', 'mocktest', 'achievements', 'daily-challenge', 'flashcards', 'values-quiz', 'starred-questions', 'question-of-day', 'test-planner', 'cramming', 'leaderboard', 'timed-test', 'mistakes', 'about', 'privacy', 'terms'].includes(activeTab) && (
           <div>
             {!activeSubsection ? (
               <div className={`rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md p-6`}>
